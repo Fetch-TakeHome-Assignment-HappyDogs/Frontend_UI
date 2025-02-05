@@ -37,7 +37,7 @@ const Login_Screen = (props) => {
                     <Grid item size={{ md:4 }}>
                         <Grid container direction="column" spacing={2}>
                             <Grid item size={{ md:12 }} className = "loginCard_1"></Grid>
-                            <Grid item size={{ md:12 }} className = "loginCard_3">
+                            <Grid item size={{ md:12 }} className = "loginCard_3 centerGrid">
                                 <Typography  variant="h2" className = "headingClass">Shelter App</Typography>
                             </Grid>
                             <Grid item size={{ md:12 }} className = "loginCard_1">

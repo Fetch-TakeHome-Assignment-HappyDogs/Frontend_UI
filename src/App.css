@@ -9,6 +9,9 @@
 
 .loginCard_3 {
     height: 20vh;
+}
+
+.centerGrid{
     display: flex;
     justify-content: center;
     align-items: center;

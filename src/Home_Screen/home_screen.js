@@ -1,14 +1,22 @@
 import React from 'react';
-import {
-
-    Button
-} from '@mui/material';
 import DogCard from './dogCard';
+import Headers from './header';
+import SearchEngine from './searchEngine';
+import {
+    Container
+} from '@mui/material';
 
 const HomeScreen = ( props ) => {
     return (
         <React.Fragment>
-            <DogCard/>
+            <Headers/>
+            <br/>
+            <Container maxWidth = 'xl'>
+                <SearchEngine/>
+                <br/>
+                <DogCard/>
+            </Container>
+            
         </React.Fragment>
     )
 }

@@ -6,7 +6,7 @@ import {
     Button
 } from '@mui/material';
 import wallpaperImg from './wallpaper.jpg';
-import HomeScreen from "../Home_Screen/Home_Screen";
+import HomeScreen from "../Home_Screen/home_screen";
 
 const Login_Screen = (props) => {
     const [ name, setName] = React.useState("");

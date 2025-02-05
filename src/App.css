@@ -1,0 +1,26 @@
+.fullHeight {
+    height: 100vh
+}
+
+.centerFullWidth{
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.loginCard_3 {
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginCard_1 {
+    height: 10vh;
+    width: 100px;
+    padding: 25px;
+}
+
+.headingClass {
+    text-align: center;
+    white-space: nowrap;
+}

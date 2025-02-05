@@ -36,7 +36,8 @@ const Login_Screen = (props) => {
                         </Grid>
                         <Grid item size={{ md:12 }} className = "loginCard_1">
                             <TextField 
-                                label="Name" 
+                                label="Name"
+                                value = {name}
                                 variant="outlined" 
                                 onChange={(evt)=>setName(evt.target.value)}
                                 fullWidth
@@ -45,6 +46,7 @@ const Login_Screen = (props) => {
                         <Grid item size={{ md:12 }} className = "loginCard_1">
                             <TextField 
                                 label="Email" 
+                                value = {email}
                                 variant="outlined" 
                                 onChange={(evt)=>setEmail(evt.target.value)}
                                 fullWidth

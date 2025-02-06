@@ -54,7 +54,10 @@ const HomeScreen = ( props ) => {
 
     return (
         <React.Fragment>
-            <Headers/>
+            <Headers
+                favList = {favList}
+                cards = {cards}
+            />
             <br/>
             <Container maxWidth = 'xl'>
                 <SearchEngine

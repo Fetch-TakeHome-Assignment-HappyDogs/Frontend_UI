@@ -24,6 +24,7 @@ const Login_Screen = (props) => {
             return
         }
         var bodyData = { name : name, email : email }
+        
         axios.post(
             'https://frontend-take-home-service.fetch.com/auth/login', 
             bodyData

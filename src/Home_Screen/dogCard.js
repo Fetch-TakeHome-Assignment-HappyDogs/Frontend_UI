@@ -42,6 +42,11 @@ const DogCard = ( props ) => {
                     color = "secondary"
                     fullWidth
                     startIcon = {<FavoriteIcon/>}
+                    variant = {props.favList.includes(props.card.id) == true? "contained":"text"}
+                    onClick={
+                        (evt)=>props.favList.includes(props.card.id) == true?
+                        props.onDelete(props.card.id):props.onSelect(props.card.id)
+                    }
                 >
                     Add to Favorites
                 </Button>

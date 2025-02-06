@@ -17,11 +17,11 @@ const SearchEngine = (props) => {
     const [ search, setSearch] = React.useState("");
     const [ city, setCity] = React.useState("");
 
-    const onSearch = (evt) => {
+    const handleChangeSearch = (evt) => {
+        console.log( "prajwal here is teh change ...", props);
 
-    }
-
-    const onSort = (evt) => {
+        setSearch( evt.target.value);
+        props.searchIds( evt.target.value );
 
     }
 
@@ -38,7 +38,7 @@ const SearchEngine = (props) => {
                     size="small"
                     label = "Search Dog"
                     value = {search}
-                    onChange={(evt)=>setSearch( evt.target.value)}
+                    onChange={handleChangeSearch}
                 />
             </Grid>
             <Grid item size = {{ md:4.5 }}>
@@ -75,7 +75,9 @@ const SearchEngine = (props) => {
                     <IconButton sx={{
                             backgroundColor: "white",
                             marginRight: "30px"
-                        }}>
+                        }}
+                        onClick={props.handleSort}
+                    >
                         <SwapVertIcon color="primary"/>
                     </IconButton>
                 </Tooltip>

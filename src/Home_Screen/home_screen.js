@@ -11,15 +11,22 @@ import axios from 'axios';
 
 const HomeScreen = ( props ) => {
     const [ cards, setCards] = React.useState([]);
-    const [ loading, setLoading] = React.useState(true);
-
+    const [ favList, setFavList] = React.useState([]);
+    const [ filter, setFilter] = React.useState("");
+    const [ order, setOrder] = React.useState(true);
+    
     const renderIds = ( dogIds ) => {
         axios.post(
             'https://frontend-take-home-service.fetch.com/dogs',
             dogIds
         ).then( res => {
-            setCards( res.data);
-            setLoading(false);
+            var data = res.data
+            data.sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+            });
+            setCards( data );
         }).catch( err => console.log("Something went wrong", err));
     }
 
@@ -27,9 +34,7 @@ const HomeScreen = ( props ) => {
         axios.get(
             'https://frontend-take-home-service.fetch.com/dogs/search?size=25&from=0',
         ).then((response) => {
-            console.log('Response:', response.data);
             renderIds( response.data.resultIds);
-            
         }).catch((error) => {
             console.error('Error:', error);
         });
@@ -40,7 +45,32 @@ const HomeScreen = ( props ) => {
             <Headers/>
             <br/>
             <Container maxWidth = 'xl'>
-                <SearchEngine/>
+                <SearchEngine
+                    handleSort = { () => {
+                        var data = cards.sort((a, b) => {
+                            if (a.name < b.name) return !order? 1 : -1;
+                            if (a.name > b.name) return !order? -1 : 1;
+                            return 0;
+                        });
+
+                        setOrder(!order);
+                        setCards( data );
+                    }}
+                    searchIds = {(newfilter) => {
+                        if( newfilter.length == 0 ){
+                            setFilter( []);
+                        }
+                        else{
+                            var newArr = [null];
+                            for( let i = 0; i < cards.length; i++){
+                                if( cards[i]["name"].includes(newfilter)){
+                                    newArr.push( cards[i]["id"])
+                                }
+                            }
+                            setFilter( newArr );
+                        } 
+                    }}
+                />
                 <br/>
                 <Grid
                     container
@@ -48,14 +78,24 @@ const HomeScreen = ( props ) => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    {cards.map( card => (
-                        <Grid item size = {{ md:3 }}>
-                            <DogCard card = {card}/>
-                        </Grid> 
+                    {cards.map((card) => (
+                        filter.length === 0 || filter.includes(card.id) ? (
+                            <Grid item size = {{ md:3 }} key = {card.id}>
+                                <DogCard
+                                    card={card}
+                                    favList={favList}
+                                    onSelect={(id) => setFavList([...favList, id])}
+                                    onDelete={(id) => {
+                                        const newArr = favList.filter((currId) => currId !== id);
+                                        setFavList(newArr);
+                                    }}
+                                />
+                            </Grid>
+                        ) : null
                     ))}
                 </Grid>
                 <br/>
-                
+
             </Container>
             
         </React.Fragment>

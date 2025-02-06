@@ -36,7 +36,7 @@ const SearchEngine = (props) => {
                 <TextField
                     fullWidth
                     size="small"
-                    label = "Search Dog"
+                    label = "Search Dog Name"
                     value = {search}
                     onChange={handleChangeSearch}
                 />
@@ -57,7 +57,7 @@ const SearchEngine = (props) => {
                     startIcon = {<SearchIcon/>}
                     variant = "contained"
                 >
-                    Search
+                    City
                 </Button>
             </Grid>
             <Grid item size = {{ md:1 }}>

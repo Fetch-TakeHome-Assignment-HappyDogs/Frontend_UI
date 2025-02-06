@@ -14,7 +14,7 @@ const HomeScreen = ( props ) => {
     const [ cards, setCards] = React.useState([]);
     const [ favList, setFavList] = React.useState([]);
     const [ filter, setFilter] = React.useState("");
-    const [ order, setOrder] = React.useState(true);
+    const [ order, setOrder] = React.useState(false);
     
     const renderIds = ( dogIds ) => {
         axios.post(
@@ -33,7 +33,7 @@ const HomeScreen = ( props ) => {
 
     React.useEffect( ()=>{
         axios.get(
-            'https://frontend-take-home-service.fetch.com/dogs/search?size=25&from=0',
+            'https://frontend-take-home-service.fetch.com/dogs/search?size=24&from=0',
         ).then((response) => {
             renderIds( response.data.resultIds);
         }).catch((error) => {
@@ -42,9 +42,9 @@ const HomeScreen = ( props ) => {
     }, []);
 
     const updatePage = (page) => {
-        page = (page - 1) * 25
+        page = (page - 1) * 24
         axios.get(
-            'https://frontend-take-home-service.fetch.com/dogs/search?size=25&from=' + page,
+            'https://frontend-take-home-service.fetch.com/dogs/search?size=24&from=' + page,
         ).then((response) => {
             renderIds( response.data.resultIds);
         }).catch((error) => {

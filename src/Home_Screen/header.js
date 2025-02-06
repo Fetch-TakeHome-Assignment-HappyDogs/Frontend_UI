@@ -57,7 +57,7 @@ const Header = (props) => {
                     variant = "outlined"
                     sx={{backgroundColor:"white"}}
                 >
-                    View Favorite
+                    <b>Best Match for you</b>
                 </Button>
             </Grid>
 

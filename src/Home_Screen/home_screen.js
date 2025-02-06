@@ -7,6 +7,7 @@ import {
     Grid2 as Grid
 } from '@mui/material';
 import axios from 'axios';
+import Footer from './footer';
 
 
 const HomeScreen = ( props ) => {
@@ -39,6 +40,17 @@ const HomeScreen = ( props ) => {
             console.error('Error:', error);
         });
     }, []);
+
+    const updatePage = (page) => {
+        page = (page - 1) * 25
+        axios.get(
+            'https://frontend-take-home-service.fetch.com/dogs/search?size=25&from=' + page,
+        ).then((response) => {
+            renderIds( response.data.resultIds);
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
     return (
         <React.Fragment>
@@ -95,7 +107,11 @@ const HomeScreen = ( props ) => {
                     ))}
                 </Grid>
                 <br/>
-
+                
+                <Footer
+                    updateKey = { (page) => updatePage(page)}
+                />
+                <br/>
             </Container>
             
         </React.Fragment>

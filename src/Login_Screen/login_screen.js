@@ -7,6 +7,10 @@ import {
 } from '@mui/material';
 import wallpaperImg from './wallpaper.jpg';
 import HomeScreen from "../Home_Screen/home_screen";
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://frontend-take-home-service.fetch.com';
+axios.defaults.withCredentials = true;  
 
 const Login_Screen = (props) => {
     const [ name, setName] = React.useState("");
@@ -15,7 +19,20 @@ const Login_Screen = (props) => {
 
     const handleLogin = (event) => {
         event.preventDefault();
-        setShowHome( true );
+        if( name.length == 0 || email.length == 0){
+            window.alert('Please provide both name and email.');
+            return
+        }
+        var bodyData = { name : name, email : email }
+        axios.post(
+            'https://frontend-take-home-service.fetch.com/auth/login', 
+            bodyData
+        ).then((response) => {
+            console.log("Response: ", response.data);
+            setShowHome( true );
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
     };
 
     return (

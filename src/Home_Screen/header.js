@@ -10,10 +10,21 @@ import {
     Logout,
     Favorite as FavoriteIcon
 } from "@mui/icons-material";
-
-
+import axios from 'axios';
 
 const Header = (props) => {
+    const handleLogout = ( evt ) => {
+        evt.preventDefault();
+        axios.post('https://frontend-take-home-service.fetch.com/auth/logout')
+        .then((response) => {
+            console.log("Successfully logged out!")
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        window.location.reload();
+    }
+
     return (
         <Grid
             container
@@ -40,10 +51,11 @@ const Header = (props) => {
 
             <Grid className = "centerGrid" item size = {{ md:2 }}>
                 <Button
-                    color = "secondary"
+                    color = "info"
                     fullWidth
                     startIcon = {<FavoriteIcon/>}
-                    variant = "contained"
+                    variant = "outlined"
+                    sx={{backgroundColor:"white"}}
                 >
                     View Favorite
                 </Button>
@@ -51,7 +63,9 @@ const Header = (props) => {
 
             <Grid className = "centerGrid" item size = {{ md:1 }}>
                 <Tooltip title="Log out">
-                    <IconButton sx={{
+                    <IconButton
+                        onClick={handleLogout} 
+                        sx={{
                             backgroundColor: "white",
                             marginRight: "30px"
                         }}>

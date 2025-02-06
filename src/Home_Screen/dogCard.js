@@ -21,19 +21,19 @@ const DogCard = ( props ) => {
             <CardMedia
                 component="img"
                 height="194"
-                image={wallpaperImg}
+                image={props.card.img}
                 alt="Paella dish"
             /> 
             <CardContent>
                 <Table>
                     <TableRow>
-                        <TableCell>Name: Prajwal</TableCell>
-                        <TableCell align="right">Age: 26</TableCell>
+                        <TableCell>Name: {props.card.name}</TableCell>
+                        <TableCell align="right">Age: {props.card.age}</TableCell>
                     </TableRow>
 
                     <TableRow>
-                        <TableCell>Breed: Lion</TableCell>
-                        <TableCell align="right">Zip: 02135</TableCell>
+                        <TableCell>Breed: {props.card.breed}</TableCell>
+                        <TableCell align="right">Zip: {props.card.zip_code}</TableCell>
                     </TableRow>
                 </Table>
                 <br/>

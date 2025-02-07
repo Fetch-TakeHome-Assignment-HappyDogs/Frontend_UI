@@ -20,7 +20,11 @@ import axios from 'axios';
 
 const Header = (props) => {
     const [ showBestMatch, setShowBestMatch] = React.useState( false );
-    const [ match, setMatch] = React.useState(null)
+    const [ match, setMatch] = React.useState({
+        name: null,
+        age: null,
+        breed: null
+    });
 
     const handleLogout = ( evt ) => {
         evt.preventDefault();

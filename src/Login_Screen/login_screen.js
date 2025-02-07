@@ -18,7 +18,6 @@ const Login_Screen = (props) => {
     const [ showHome, setShowHome] = React.useState(false);
 
     const handleLogin = (event) => {
-        event.preventDefault();
         if( name.length == 0 || email.length == 0){
             window.alert('Please provide both name and email.');
             return

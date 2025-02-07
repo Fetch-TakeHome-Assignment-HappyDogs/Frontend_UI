@@ -9,20 +9,20 @@ import {
 
 import {
     Search as SearchIcon,
-    SwapVert as SwapVertIcon
+    SwapVert as SwapVertIcon,
+    Close
 } from '@mui/icons-material';
 
 
 const SearchEngine = (props) => {
     const [ search, setSearch] = React.useState("");
     const [ city, setCity] = React.useState("");
+    const [ minAge, setMinAge] = React.useState(null);
+    const [ maxAge, setMaxAge] = React.useState(null);
 
     const handleChangeSearch = (evt) => {
-        console.log( "prajwal here is teh change ...", props);
-
         setSearch( evt.target.value);
         props.searchIds( evt.target.value );
-
     }
 
     return (
@@ -32,7 +32,7 @@ const SearchEngine = (props) => {
             alignItems="center"
             justifyContent="center"
         >
-            <Grid item size = {{ md:4.5 }}>
+            <Grid item size = {{ md:4 }}>
                 <TextField
                     fullWidth
                     size="small"
@@ -41,33 +41,70 @@ const SearchEngine = (props) => {
                     onChange={handleChangeSearch}
                 />
             </Grid>
-            <Grid item size = {{ md:4.5 }}>
+            <Grid item size = {{ md:3 }}>
                 <TextField
                     fullWidth
                     size="small"
                     label = "City"
                     value = {city}
-                    onChange={(evt) => setCity( evt.target.value)}
+                    onChange={(evt) => setCity( evt.target.value )}
                 />
             </Grid>
-            <Grid item size = {{ md:1.5 }}>
+
+            <Grid item size = {{ md:1 }}>
+                <TextField
+                    fullWidth
+                    size="small"
+                    label = "Max Age"
+                    value = {maxAge}
+                    onChange={(evt) => {
+                        setMaxAge( evt.target.value);
+                        props.setMaxAge( evt.target.value );
+                    }}
+                />
+            </Grid>
+
+            <Grid item size = {{ md:1 }}>
+                <TextField
+                    fullWidth
+                    size="small"
+                    label = "Min Age"
+                    value = {minAge}
+                    onChange={(evt) => {
+                        setMinAge( evt.target.value );
+                        props.setMinAge( evt.target.value );
+                    }}
+                />
+            </Grid>
+
+            <Grid item size = {{ md:2 }}>
                 <Button
                     color = "primary"
                     fullWidth
                     startIcon = {<SearchIcon/>}
                     variant = "contained"
+                    onClick = { () => props.handleCityChange(city)}
                 >
-                    City
+                    Search Dogs
                 </Button>
             </Grid>
-            <Grid item size = {{ md:1 }}>
-                <Button
-                    color = "primary"
-                    fullWidth
-                    variant = "contained"
-                >
-                    Adv.
-                </Button>
+
+            <Grid item size = {{ md:0.5 }}>
+                <Tooltip title="Remove Filters">
+                    <IconButton sx={{
+                            backgroundColor: "white",
+                            marginRight: "30px"
+                        }}
+                        onClick={()=>{
+                            setCity("");
+                            setMaxAge("");
+                            setMinAge("");
+                            props.cleanFilter()
+                        }}
+                    >
+                        <Close color="error"/>
+                    </IconButton>
+                </Tooltip>
             </Grid>
 
             <Grid item size = {{ md:0.5 }}>

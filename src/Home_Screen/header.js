@@ -126,7 +126,7 @@ const Header = (props) => {
                         sx={{backgroundColor:"white"}}
                         onClick = { handleMatchClick }
                     >
-                        <b>Best Match for you</b>
+                        <b>Get Best Match</b>
                     </Button>
                 </Grid>
 

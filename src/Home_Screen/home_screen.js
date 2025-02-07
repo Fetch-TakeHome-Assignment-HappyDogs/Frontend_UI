@@ -23,6 +23,7 @@ const HomeScreen = ( props ) => {
     const [ breeds, setBreeds] = React.useState(null);
     const [ minAge, setMinAge] = React.useState(null);
     const [ maxAge, setMaxAge] = React.useState(null);
+    const [ allBreeds, setAllBreeds] = React.useState( [] );
     
     const renderIds = ( dogIds ) => {
         axios.post(
@@ -36,33 +37,34 @@ const HomeScreen = ( props ) => {
                 return 0;
             });
             setCards( data );
-            console.log(data)
         }).catch( err => console.log("Something went wrong", err));
     }
 
     React.useEffect( ()=>{
         advSearchAPI(1, false);
+
+        axios.get('https://frontend-take-home-service.fetch.com/dogs/breeds'
+        ).then( res => {
+            setAllBreeds( res.data );
+        }).catch( err => console.log("Something went wrong", err));
     }, []);
 
     const advSearchAPI = ( page, clear, zip_clone, breed_clone, minClone, maxClone ) => {
         page = (page - 1) * 24
         let requiredAPI = "https://frontend-take-home-service.fetch.com/dogs/search?";
-        console.log( zip_clone )
 
         breed_clone = breed_clone? breed_clone : breeds;
         if( !clear && breed_clone ){
-            let currentArray = JSON.stringify(breed_clone);
-            requiredAPI = requiredAPI + "&breeds=" + currentArray
+            for( let i = 0; i < breed_clone.length; i++){
+                requiredAPI = requiredAPI + `&breeds=${breed_clone[i]}` 
+            }
         }
 
         zip_clone = zip_clone? zip_clone: zip_codes;
         if( !clear && zip_clone){
-            // &zipCodes=17089
-            // &zipCodes=28451
             for( let i = 0; i < zip_clone.length; i++){
                 requiredAPI = requiredAPI + `&zipCodes=${zip_clone[i]}` 
             }
-            console.log( requiredAPI )
         }
 
         minClone = minClone? minClone : minAge;
@@ -78,7 +80,6 @@ const HomeScreen = ( props ) => {
         axios.get(
             requiredAPI + "&size=24&from=" + page,
         ).then((response) => {
-            console.log( "Again: ", response.data.resultIds );
             renderIds( response.data.resultIds);
         }).catch((error) => {
             setCards([])
@@ -87,8 +88,6 @@ const HomeScreen = ( props ) => {
     }
 
     const handleCityChange = ( newCity ) => {
-        
-
         if( newCity && newCity.length != 0){
             const regex = /^[A-Za-z ]+$/;
             if( regex.test(newCity) == false){
@@ -152,7 +151,8 @@ const HomeScreen = ( props ) => {
                     }}
                     setMinAge = {(val) => setMinAge(val)}
                     setMaxAge = {(val) => setMaxAge(val)}
-
+                    setBreeds = {(val) => setBreeds(val)}
+                    allBreeds = {allBreeds}
                 />
                 <br/>
                 <Grid

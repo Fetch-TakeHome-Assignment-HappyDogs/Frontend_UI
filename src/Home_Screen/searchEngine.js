@@ -4,7 +4,8 @@ import {
     Button,
     TextField,
     Tooltip,
-    IconButton
+    IconButton,
+    Autocomplete
 } from '@mui/material';
 
 import {
@@ -19,6 +20,7 @@ const SearchEngine = (props) => {
     const [ city, setCity] = React.useState("");
     const [ minAge, setMinAge] = React.useState(null);
     const [ maxAge, setMaxAge] = React.useState(null);
+    const [ breeds, setBreeds] = React.useState([]);
 
     const handleChangeSearch = (evt) => {
         setSearch( evt.target.value);
@@ -32,7 +34,7 @@ const SearchEngine = (props) => {
             alignItems="center"
             justifyContent="center"
         >
-            <Grid item size = {{ md:4 }}>
+            <Grid item size = {{ md:2 }}>
                 <TextField
                     fullWidth
                     size="small"
@@ -41,13 +43,30 @@ const SearchEngine = (props) => {
                     onChange={handleChangeSearch}
                 />
             </Grid>
-            <Grid item size = {{ md:3 }}>
+            <Grid item size = {{ md:2 }}>
                 <TextField
                     fullWidth
                     size="small"
                     label = "City"
                     value = {city}
                     onChange={(evt) => setCity( evt.target.value )}
+                />
+            </Grid>
+
+            <Grid item size = {{ md:3 }}>
+                <Autocomplete
+                    size="small"
+                    options={props.allBreeds}
+                    getOptionLabel={(option) => option}
+                    value={breeds}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Breeds"/>
+                    )}
+                    onChange={( evt, value )=>{
+                        setBreeds( value );
+                        props.setBreeds(value);
+                    }}
+                    multiple
                 />
             </Grid>
 
@@ -99,7 +118,8 @@ const SearchEngine = (props) => {
                             setCity("");
                             setMaxAge("");
                             setMinAge("");
-                            props.cleanFilter()
+                            setBreeds( [] );
+                            props.cleanFilter();
                         }}
                     >
                         <Close color="error"/>

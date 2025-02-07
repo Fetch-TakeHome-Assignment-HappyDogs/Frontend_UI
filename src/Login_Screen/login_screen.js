@@ -28,7 +28,7 @@ const Login_Screen = (props) => {
             'https://frontend-take-home-service.fetch.com/auth/login', 
             bodyData
         ).then((response) => {
-            console.log("Response: ", response.data);
+            console.log("Success logged in!")
             setShowHome( true );
         }).catch((error) => {
             console.error('Error:', error);
